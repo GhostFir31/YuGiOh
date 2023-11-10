@@ -60,7 +60,7 @@ public class CollectionIDE extends javax.swing.JFrame {
             }
         });
 
-        EscogerAtributos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "WIND", "WATER", "EARTH", "FIRE", "DARK", "LIGHT", "DIVINE", "SPELL", "TRAP" }));
+        EscogerAtributos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DARK", "EARTH", "FIRE", "LIGHT", "SPELL", "TRAP", "WATER", "WIND" }));
         EscogerAtributos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EscogerAtributosActionPerformed(evt);
@@ -523,23 +523,10 @@ public class CollectionIDE extends javax.swing.JFrame {
     private javax.swing.JCheckBox OrganizarAltoBajoValor;
     private javax.swing.JCheckBox OrganizarBajoAltoValor;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
 }
