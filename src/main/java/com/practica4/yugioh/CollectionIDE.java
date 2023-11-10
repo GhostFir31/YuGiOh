@@ -50,6 +50,8 @@ public class CollectionIDE extends javax.swing.JFrame {
         OrganizarBajoAltoValor = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
         jToggleButton2 = new javax.swing.JToggleButton();
+        ChooseLevelB = new javax.swing.JButton();
+        ChooseAtributeB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,6 +139,20 @@ public class CollectionIDE extends javax.swing.JFrame {
             }
         });
 
+        ChooseLevelB.setText("jButton1");
+        ChooseLevelB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChooseLevelBActionPerformed(evt);
+            }
+        });
+
+        ChooseAtributeB.setText("jButton2");
+        ChooseAtributeB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChooseAtributeBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -158,11 +174,18 @@ public class CollectionIDE extends javax.swing.JFrame {
                         .addGap(79, 79, 79)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(OrganizarAltoBajoValor)
-                            .addComponent(EscogerNiveles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(EscogerAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(OrganizarBajoAltoValor))
+                            .addComponent(OrganizarBajoAltoValor)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(EscogerNiveles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(ChooseLevelB, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                                .addComponent(jLabel3))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(EscogerAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ChooseAtributeB, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(17, 17, 17))))
         );
 
@@ -178,11 +201,15 @@ public class CollectionIDE extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(EscogerNiveles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(EscogerNiveles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ChooseLevelB))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(EscogerAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(EscogerAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ChooseAtributeB)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(MostrarTodasCartas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -322,12 +349,71 @@ public class CollectionIDE extends javax.swing.JFrame {
     }//GEN-LAST:event_MostrarPorDefensaActionPerformed
 
     private void EscogerNivelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EscogerNivelesActionPerformed
-        
+
     }//GEN-LAST:event_EscogerNivelesActionPerformed
 
     private void EscogerAtributosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EscogerAtributosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EscogerAtributosActionPerformed
+
+    private void ChooseLevelBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseLevelBActionPerformed
+
+        int nivel = Integer.parseInt(EscogerNiveles.getSelectedItem().toString());
+
+        ListaDoble<String[]> nuevasCartas = new ListaDoble<>();
+
+        NodoDoble<String[]> current = lector.getCartas().getInicio();
+
+        while (current != null) {
+            String nivelCartaStr = current.getInfo()[6];
+            if (!nivelCartaStr.isEmpty()) {
+                int nivelCarta = Integer.parseInt(nivelCartaStr);
+
+                if (nivelCarta == nivel) {
+
+                    nuevasCartas.insertaFin(current.getInfo());
+                }
+            }
+            current = current.getSig();
+        }
+
+        lector.setCartas(nuevasCartas);
+
+        VentanaOrdenamientos ordenamientos = new VentanaOrdenamientos();
+        ordenamientos.setVisible(true);
+        ordenamientos.setLocationRelativeTo(null);
+
+        lector.clear();
+        lector.obtenerLista();
+
+    }//GEN-LAST:event_ChooseLevelBActionPerformed
+
+    private void ChooseAtributeBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseAtributeBActionPerformed
+
+        String Atributo = EscogerAtributos.getSelectedItem().toString();
+
+        ListaDoble<String[]> nuevasCartas = new ListaDoble<>();
+
+        NodoDoble<String[]> current = lector.getCartas().getInicio();
+
+        while (current != null) {
+            String atributoCarta = current.getInfo()[7];
+            if (!atributoCarta.isEmpty()) {
+                if (atributoCarta.equals(Atributo)) {
+                    nuevasCartas.insertaFin(current.getInfo());
+                }
+            }
+            current = current.getSig();
+        }
+
+        lector.setCartas(nuevasCartas);
+        VentanaOrdenamientos ordenamientos = new VentanaOrdenamientos();
+        ordenamientos.setVisible(true);
+        ordenamientos.setLocationRelativeTo(null);
+
+        lector.clear();
+        lector.obtenerLista();
+    }//GEN-LAST:event_ChooseAtributeBActionPerformed
 
     public void ordenarPorNivel() {
         NodoDoble<String[]> current = lector.getCartas().getInicio();
@@ -356,6 +442,12 @@ public class CollectionIDE extends javax.swing.JFrame {
                         siguiente.setInfo(temp);
                     }
                 } else {
+
+                    if (nivelActualStr.isEmpty()) {
+                        lector.eliminarCarta(current);
+                    } else {
+                        lector.eliminarCarta(siguiente);
+                    }
 
                 }
 
@@ -392,7 +484,11 @@ public class CollectionIDE extends javax.swing.JFrame {
                         siguiente.setInfo(temp);
                     }
                 } else {
-
+                    if (nivelActualStr.isEmpty()) {
+                        lector.eliminarCarta(current);
+                    } else {
+                        lector.eliminarCarta(siguiente);
+                    }
                 }
 
                 siguiente = siguiente.getSig();
@@ -429,7 +525,11 @@ public class CollectionIDE extends javax.swing.JFrame {
                         siguiente.setInfo(temp);
                     }
                 } else {
-
+                    if (nivelActualStr.isEmpty()) {
+                        lector.eliminarCarta(current);
+                    } else {
+                        lector.eliminarCarta(siguiente);
+                    }
                 }
 
                 siguiente = siguiente.getSig();
@@ -466,7 +566,11 @@ public class CollectionIDE extends javax.swing.JFrame {
                         siguiente.setInfo(temp);
                     }
                 } else {
-
+                    if (nivelActualStr.isEmpty()) {
+                        lector.eliminarCarta(current);
+                    } else {
+                        lector.eliminarCarta(siguiente);
+                    }
                 }
 
                 siguiente = siguiente.getSig();
@@ -513,6 +617,8 @@ public class CollectionIDE extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ChooseAtributeB;
+    private javax.swing.JButton ChooseLevelB;
     private javax.swing.JComboBox<String> EscogerAtributos;
     private javax.swing.JComboBox<String> EscogerNiveles;
     private javax.swing.JButton MostrarPorAtaque;

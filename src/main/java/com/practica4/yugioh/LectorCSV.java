@@ -16,7 +16,7 @@ public class LectorCSV {
     public LectorCSV() {
 
         cartas = new ListaDoble<>();
-
+        
     }
 
     public static ListaDoble<String[]> getCartas() {
@@ -49,11 +49,8 @@ public class LectorCSV {
                     //puede ver un error aqui
                     if (fila.length > 0 && StringUtils.isNumeric(fila[0])) {
                         cartas.insertaFin(fila);
-                    } 
-                    else {
-                        
-                        
-                        
+                    } else {
+
                     }
                 }
 
@@ -73,6 +70,21 @@ public class LectorCSV {
 
         this.cartas = new ListaDoble<>();
 
+    }
+
+    public void eliminarCarta(NodoDoble<String[]> nodo) {
+        if (nodo == null || nodo.getAnt() == null) {
+           
+            return;
+        }
+
+        NodoDoble<String[]> anterior = nodo.getAnt();
+        NodoDoble<String[]> siguiente = nodo.getSig();
+
+        anterior.setSig(siguiente);
+        if (siguiente != null) {
+            siguiente.setAnt(anterior);
+        }
     }
 
 }

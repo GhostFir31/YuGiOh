@@ -277,7 +277,7 @@ public class VentanaOrdenamientos extends javax.swing.JFrame {
     }//GEN-LAST:event_NombreTEXTActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        
         if (cartas.getInicio() != null) {
             if (current != null && current.getSig() != null) {
                 current = current.getSig();
@@ -393,13 +393,25 @@ public class VentanaOrdenamientos extends javax.swing.JFrame {
 
         return -1;
     }
+    public int contarCartas(){
+    
+        NodoDoble<String[]> current = cartas.getInicio();
+        int numCartas = 0;
 
+        while (current != null) {
+
+            current = current.getSig();
+            numCartas++;
+        }
+
+        return numCartas;
+    }
     public void mostrarPosicion(String id) {
         int posicion = encontrarPosicionPorID(id);
 
         if (posicion != -1) {
 
-            NumeroCartaTEXT.setText("" + posicion+"/300");
+            NumeroCartaTEXT.setText("" + posicion+"/"+contarCartas());
         } else {
 
             JOptionPane.showMessageDialog(this, "ID no encontrado en la lista: " + id, "ERROR", JOptionPane.ERROR_MESSAGE);
